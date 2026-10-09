@@ -1,0 +1,176 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Design tokens ───────────────────────────────────────────
+   Clean light-blue look: white cards with soft shadows on a pale
+   background, one blue accent, navy for strong actions. */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f3f6fb;
+  --fg: #0f172a;
+  --muted: #566074;
+  --border: #e4e9f2;
+  --accent: #2563eb;
+  --accent-fg: #ffffff;
+  --accent-soft: rgb(37 99 235 / 0.08);
+  --strong: #0b1736;
+  --strong-fg: #ffffff;
+  --hero-from: #e9f0ff;
+  --dots: rgb(37 99 235 / 0.16);
+  --spot: rgb(37 99 235 / 0.09);
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+}
+
+.dark {
+  --bg: #0a0f1c;
+  --surface: #111a2c;
+  --surface-2: #162036;
+  --fg: #e7ecf5;
+  --muted: #98a3b8;
+  --border: #1f2a42;
+  --accent: #5b9cff;
+  --accent-fg: #06122a;
+  --accent-soft: rgb(91 156 255 / 0.12);
+  --strong: #e7ecf5;
+  --strong-fg: #0a0f1c;
+  --hero-from: #0f1a33;
+  --dots: rgb(91 156 255 / 0.18);
+  --spot: rgb(91 156 255 / 0.14);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-strong: var(--strong);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-strong-fg: var(--strong-fg);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 10px 30px -12px rgb(15 23 42 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(15 23 42 / 0.05), 0 18px 40px -14px rgb(37 99 235 / 0.25);
+}
+
+html {
+  scroll-padding-top: 5rem;
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* Soft blue wash behind the hero */
+.hero-bg {
+  background: linear-gradient(180deg, var(--hero-from) 0%, var(--bg) 100%);
+}
+
+/* Dotted texture used as decoration in the hero */
+.dot-grid {
+  background-image: radial-gradient(var(--dots) 1.5px, transparent 1.5px);
+  background-size: 16px 16px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Cursor spotlight on cards (position set by <SpotlightCard>) */
+.spotlight {
+  background-image: radial-gradient(
+    380px circle at var(--x, -100%) var(--y, -100%),
+    var(--spot),
+    transparent 45%
+  );
+}
+
+/* Floating colour blobs behind the hero */
+@keyframes float-blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(40px, -30px) scale(1.08);
+  }
+}
+.blob {
+  animation: float-blob 16s ease-in-out infinite;
+}
+
+/* Infinite logo marquee */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  animation: marquee 45s linear infinite;
+}
+.marquee-reverse {
+  animation-direction: reverse;
+}
+.marquee-row:hover .marquee {
+  animation-play-state: paused;
+}
+
+/* Animated gradient border (contact banner) */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+.gradient-border {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--accent-soft), var(--accent-soft)) padding-box,
+    linear-gradient(var(--surface), var(--surface)) padding-box,
+    conic-gradient(from var(--angle), var(--accent), #38bdf8, #a78bfa, var(--accent)) border-box;
+  animation: spin-angle 6s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob,
+  .marquee,
+  .gradient-border {
+    animation: none;
+  }
+}

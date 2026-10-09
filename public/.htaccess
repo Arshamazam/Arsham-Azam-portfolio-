@@ -1,0 +1,16 @@
+# Hostinger (LiteSpeed/Apache) settings for the static export.
+# Turn on HTTPS in hPanel → Security → SSL ("Force HTTPS"), not here.
+
+ErrorDocument 404 /404.html
+Options -Indexes
+
+<IfModule mod_headers.c>
+  # Hashed build assets never change: cache for a year.
+  <FilesMatch "\.(js|css|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # Pages and data: always check for a newer version after a deploy.
+  <FilesMatch "\.(html|txt|xml|pdf)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
