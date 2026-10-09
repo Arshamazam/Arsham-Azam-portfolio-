@@ -36,14 +36,7 @@ export function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-14 px-5 pt-12 pb-24 sm:px-8 sm:pt-16 lg:grid-cols-[1.15fr_1fr] lg:pt-16 lg:pb-28">
         <div>
           <Reveal>
-            <p className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 px-3 py-1 text-xs font-medium text-muted shadow-soft backdrop-blur">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400 opacity-70 motion-reduce:animate-none" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-500" />
-              </span>
-              {person.availability}
-            </p>
-            <p className="mt-6 font-display text-xl font-semibold text-accent">{hero.greeting}</p>
+            <p className="font-display text-xl font-semibold text-accent">{hero.greeting}</p>
             <h1
               id="hero-title"
               className="mt-1 font-display text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"

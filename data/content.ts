@@ -105,7 +105,6 @@ export const person = {
   photoAlt: "Portrait of Arsham Azam",
   cv: "/cv.pdf",
   email: "arshamrana36@gmail.com",
-  availability: "Open to PhD positions & new client projects",
 };
 
 export const socials = {
