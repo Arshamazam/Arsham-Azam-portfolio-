@@ -70,7 +70,7 @@ export type Project = {
 
 export const site = {
   // Change this to your real domain once deployed (used for SEO, sitemap & OG tags).
-  url: "https://arshamazam.vercel.app",
+  url: "https://arshammywork.com",
   title: "Arsham Azam — AI Researcher & Inference Engineer",
   description:
     "Arsham Azam is an AI researcher, AI specialist and inference engineer from Lahore, Pakistan, working on explainable, privacy-preserving AI for healthcare and on serving and optimizing models, including LLMs, in production.",

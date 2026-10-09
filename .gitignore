@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Hostinger upload archive (npm run zip)
+hostinger-upload.zip

@@ -71,7 +71,7 @@ export function Navbar() {
           <span className="font-display text-lg font-bold tracking-tight whitespace-nowrap">{person.name}</span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-0.5 lg:flex xl:gap-1">
+        <nav aria-label="Main" className="hidden items-center gap-0.5 lg:mx-3 lg:flex xl:mx-6 xl:gap-1">
           {nav.map((item) => (
             <Link
               key={item.href}

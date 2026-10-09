@@ -11,15 +11,8 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   // cacheComponents is intentionally off: it rejects `dynamic = "force-static"`,
   // which `output: "export"` requires for sitemap/robots/OG image routes.
-  turbopack: {
-    root: process.cwd(),
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
+  // Tailwind runs through PostCSS (postcss.config.mjs), which works with both bundlers.
+  turbopack: { root: process.cwd() },
 };
 
 export default nextConfig;

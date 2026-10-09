@@ -2,7 +2,7 @@
 
 Personal site for **Arsham Azam**, Software Engineer & AI Researcher (Explainable AI · Federated Learning · Multimodal AI for Healthcare).
 
-Built with Next.js (App Router), TypeScript, Tailwind CSS v4 and Framer Motion. Exported as a fully static site and deployed to Hostinger automatically on every push to `main`.
+Built with Next.js (App Router), TypeScript, Tailwind CSS v4 and Framer Motion. Exported as a fully static site and hosted on Hostinger at https://arshammywork.com.
 
 ## Run locally
 
@@ -50,28 +50,27 @@ npm run cv    # builds the site, then prints /cv to public/cv.pdf (A4)
 
 Run it whenever you change your content, then commit the new `public/cv.pdf`. It uses your installed Google Chrome; set `CHROME_PATH` if Chrome is somewhere unusual. CV-only fields (impact highlights, phone, nationality, languages with CEFR levels, awards) are in the `cv` object at the bottom of `content.ts`, and empty ones are hidden.
 
-## Deploy to Hostinger (automatic)
+## Deploy to Hostinger
 
-Every push to `main` triggers `.github/workflows/deploy-hostinger.yml`. It builds the static site, regenerates `cv.pdf`, and uploads only the changed files to Hostinger over FTP. The live site updates about 2 minutes after a push. Progress is under the repo's **Actions** tab.
+The site is a static export. `npm run build` (Next.js with webpack) writes plain HTML, CSS and JS to `out/`.
 
-One-time setup:
+Hostinger settings (**hPanel → Websites → arshammywork.com → Deployments → Build and output settings**):
 
-1. In **hPanel → Files → FTP Accounts**, note the FTP hostname, username and password. Reset the password if you don't know it.
-2. In the GitHub repo, open **Settings → Secrets and variables → Actions** and add these repository secrets:
-   - `FTP_SERVER`: the FTP hostname
-   - `FTP_USERNAME`: the FTP username
-   - `FTP_PASSWORD`: the FTP password
-   - `FTP_SERVER_DIR` (optional): the folder to upload into, ending in `/`. Defaults to `public_html/`. If your FTP account opens above the site folder (e.g. `domains/yourdomain.com/public_html/`), set that path.
-3. In **hPanel → Security → SSL**, install the free SSL certificate and turn on **Force HTTPS**.
-4. Set `site.url` in `data/content.ts` to your domain (it's used for SEO, the sitemap and the CV's QR code), then push.
+| Setting | Value |
+| --- | --- |
+| Framework | Next.js |
+| Node version | 22.x |
+| Build command | `npm run build` |
+| Output directory | `out` |
+| Root directory | the folder containing `package.json` |
 
-To redeploy without changes, open **Actions → Deploy to Hostinger → Run workflow**.
+Ways to deploy:
+- **GitHub (automatic):** connect the repo `Arshamazam/Arsham-Azam-portfolio-` in the Deployments page. Every push to `main` then rebuilds and publishes the site.
+- **Zip upload:** run `npm run zip` and upload `hostinger-upload.zip` under **Deployments → New deployment**.
 
-`public/.htaccess` sets the 404 page and browser caching (hashed assets for a year, pages always fresh).
+Run `npm run cv` before pushing content changes so `public/cv.pdf` stays current. It needs Google Chrome on your machine, so it isn't run on Hostinger.
 
-### Alternative: Vercel
-
-Import the repo at [vercel.com/new](https://vercel.com/new) and click **Deploy**. No settings are needed. Disable the Hostinger workflow if you switch.
+`public/.htaccess` sets the 404 page and browser caching. Hostinger ignores it if it serves the app through Node instead of Apache/LiteSpeed.
 
 ## Structure
 
@@ -92,7 +91,6 @@ components/
   ui/                  Section, Reveal, Button, Tag, PublicationCard, OngoingCard, ProfilePhoto, ContactForm
 data/content.ts        all site content
 lib/utils.ts           helpers (class names, base-path aware asset URLs, DOI/arXiv links)
-.github/workflows/     deploy-hostinger.yml (build + FTP upload on push to main)
 public/                profile.jpg, cv.pdf, projects/*
 ```
 
